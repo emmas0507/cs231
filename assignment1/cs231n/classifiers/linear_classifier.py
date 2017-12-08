@@ -47,13 +47,15 @@ class LinearClassifier(object):
       # Sample batch_size elements from the training data and their           #
       # corresponding labels to use in this round of gradient descent.        #
       # Store the data in X_batch and their corresponding labels in           #
-      # y_batch; after sampling X_batch should have shape (dim, batch_size)   #
+      # y_batch; after sampling X_batch should have shape (dim, batch_size)? (batch_size, dim)  #
       # and y_batch should have shape (batch_size,)                           #
       #                                                                       #
       # Hint: Use np.random.choice to generate indices. Sampling with         #
       # replacement is faster than sampling without replacement.              #
       #########################################################################
-      pass
+      batch_index = np.random.choice(range(num_train), batch_size, replace=True)
+      X_batch = X[batch_index, :]
+      y_batch = y[batch_index]
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -67,12 +69,14 @@ class LinearClassifier(object):
       # TODO:                                                                 #
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
-      pass
+      self.W = self.W - learning_rate * grad
+      # if learning_rate == 5e-5:
+      #   import pdb; pdb.set_trace()
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
 
-      if verbose and it % 100 == 0:
+      if verbose and it % 50 == 0:
         print('iteration %d / %d: loss %f' % (it, num_iters, loss))
 
     return loss_history
@@ -96,7 +100,7 @@ class LinearClassifier(object):
     # TODO:                                                                   #
     # Implement this method. Store the predicted labels in y_pred.            #
     ###########################################################################
-    pass
+    y_pred = np.dot(X, self.W).argmax(axis=1)
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
@@ -124,7 +128,8 @@ class LinearSVM(LinearClassifier):
   """ A subclass that uses the Multiclass SVM loss function """
 
   def loss(self, X_batch, y_batch, reg):
-    return svm_loss_vectorized(self.W, X_batch, y_batch, reg)
+      return svm_loss_vectorized(self.W, X_batch, y_batch, reg)
+      # return svm_loss_naive(self.W, X_batch, y_batch, reg)
 
 
 class Softmax(LinearClassifier):
