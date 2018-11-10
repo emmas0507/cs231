@@ -123,3 +123,16 @@ assignment1/cs231n/datasets/
 # intermediate results
 *.DS_Store
 *.pkl
+*.png
+*.npz
+assignment3/reports/
+*.jpg
+assignment3/cs231n/datasets/
+assignment2/.idea/
+assignment3/styles/
+assignment1/report/
+assignment2/reports/
+assignment2/MNIST_data/
+assignment2/cs231n/datasets
+assignment3/.idea/
+assignment3/gan-checks-tf.npz
